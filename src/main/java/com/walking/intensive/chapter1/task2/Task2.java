@@ -39,9 +39,11 @@ public class Task2 {
 
     static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {
         final int FLATS_ON_FLOOR = 4;
+
         if (floorAmount <= 0 || entranceAmount <= 0 || flatNumber <= 0) {
             return "Некорректные входные данные";
         }
+
         if (flatNumber > floorAmount * entranceAmount * FLATS_ON_FLOOR) {
             return "Такой квартиры не существует";
         }
@@ -85,7 +87,6 @@ public class Task2 {
                 flatLocation += "справа от лифта, вправо";
                 break;
         }
-
         return flatLocation;
     }
 }
