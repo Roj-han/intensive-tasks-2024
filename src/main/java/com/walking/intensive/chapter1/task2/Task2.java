@@ -38,14 +38,16 @@ public class Task2 {
     }
 
     static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {
+        final int FLATS_ON_FLOOR = 4;
         if (floorAmount <= 0 || entranceAmount <= 0 || flatNumber <= 0) {
             return "Некорректные входные данные";
-        } else if (flatNumber > floorAmount * entranceAmount * 4) {
+        }
+        if (flatNumber > floorAmount * entranceAmount * FLATS_ON_FLOOR) {
             return "Такой квартиры не существует";
         }
 
         int floor = 0, entrance = 0;
-        int flatsInSection = floorAmount * 4; //количество квартир в подъезде
+        int flatsInSection = floorAmount * FLATS_ON_FLOOR; //количество квартир в подъезде
 
         if (flatNumber % flatsInSection == 0) {  // блок определения номера подъезда
             entrance = flatNumber / flatsInSection;
@@ -54,36 +56,36 @@ public class Task2 {
         }
 
         if (entrance == 1) {                    // блок определения номера этажа
-            if (flatNumber % 4 == 0) {
-                floor = flatNumber / 4;
+            if (flatNumber % FLATS_ON_FLOOR == 0) {
+                floor = flatNumber / FLATS_ON_FLOOR;
             } else {
-                floor = flatNumber / 4 + 1;
+                floor = flatNumber / FLATS_ON_FLOOR + 1;
             }
         } else {
-            if (flatNumber % 4 == 0) {
-                floor = (flatNumber - (entrance - 1) * flatsInSection) / 4;
+            if (flatNumber % FLATS_ON_FLOOR == 0) {
+                floor = (flatNumber - (entrance - 1) * flatsInSection) / FLATS_ON_FLOOR;
             } else {
-                floor = (flatNumber - (entrance - 1) * flatsInSection) / 4 + 1;
+                floor = (flatNumber - (entrance - 1) * flatsInSection) / FLATS_ON_FLOOR + 1;
             }
         }
 
-        String result = flatNumber + " кв - " + entrance + " подъезд, " + floor + " этаж, ";
+        String flatLocation = flatNumber + " кв - " + entrance + " подъезд, " + floor + " этаж, ";
 
-        switch (flatNumber % 4) {
+        switch (flatNumber % FLATS_ON_FLOOR) {
             case 1:
-                result += "слева от лифта, влево";
+                flatLocation += "слева от лифта, влево";
                 break;
             case 2:
-                result += "слева от лифта, вправо";
+                flatLocation += "слева от лифта, вправо";
                 break;
             case 3:
-                result += "справа от лифта, влево";
+                flatLocation += "справа от лифта, влево";
                 break;
             case 0:
-                result += "справа от лифта, вправо";
+                flatLocation += "справа от лифта, вправо";
                 break;
         }
 
-        return result;
+        return flatLocation;
     }
 }
