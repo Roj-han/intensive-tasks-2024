@@ -34,11 +34,56 @@ package com.walking.intensive.chapter1.task2;
 public class Task2 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(getFlatLocation(2, 5, 12));
     }
 
     static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {
-        //        Место для вашего кода
+        if (floorAmount <= 0 || entranceAmount <= 0 || flatNumber <= 0) {
+            return "Некорректные входные данные";
+        } else if (flatNumber > floorAmount * entranceAmount * 4) {
+            return "Такой квартиры не существует";
+        }
 
-        return null; // Заглушка. При реализации - удалить
+        int floor = 0, entrance = 0;
+        int flatsInSection = floorAmount * 4; //количество квартир в подъезде
+
+        if (flatNumber % flatsInSection == 0) {  // блок определения номера подъезда
+            entrance = flatNumber / flatsInSection;
+        } else {
+            entrance = flatNumber / flatsInSection + 1;
+        }
+
+        if (entrance == 1) {                    // блок определения номера этажа
+            if (flatNumber % 4 == 0) {
+                floor = flatNumber / 4;
+            } else {
+                floor = flatNumber / 4 + 1;
+            }
+        } else {
+            if (flatNumber % 4 == 0) {
+                floor = (flatNumber - (entrance - 1) * flatsInSection) / 4;
+            } else {
+                floor = (flatNumber - (entrance - 1) * flatsInSection) / 4 + 1;
+            }
+        }
+
+        String result = flatNumber + " кв - " + entrance + " подъезд, " + floor + " этаж, ";
+
+        switch (flatNumber % 4) {
+            case 1:
+                result += "слева от лифта, влево";
+                break;
+            case 2:
+                result += "слева от лифта, вправо";
+                break;
+            case 3:
+                result += "справа от лифта, влево";
+                break;
+            case 0:
+                result += "справа от лифта, вправо";
+                break;
+        }
+
+        return result;
     }
 }
