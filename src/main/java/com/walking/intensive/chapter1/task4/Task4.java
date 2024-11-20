@@ -25,7 +25,7 @@ package com.walking.intensive.chapter1.task4;
 public class Task4 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-        double a = 0;
+        double a = 3;
         double b = 0;
         double c = 0;
 
@@ -34,8 +34,34 @@ public class Task4 {
     }
 
     static String solveEquation(double a, double b, double c) {
-        //        Место для вашего кода
+        if (a == 0 && b == 0 && c == 0) {
+            return "Бесконечное множество решений.";
+        }
 
-        return null; // Заглушка. При реализации - удалить
+        if (a == 0 && b != 0 && c != 0) {
+            return "Количество решений: 1. Корень: " + (-c / b);
+        }
+
+        double discriminant = b * b - 4 * a * c;
+
+        if (discriminant < 0 || (a == 0 && b == 0)) {   //включает ур-е с = 0, где с отлично от нуля
+            return "Количество решений: 0.";
+        }
+
+        if (discriminant == 0) {
+            if (b == 0) {         //чтобы не было знака "-" у нуля в ответе, если b = 0
+                b = -b;
+            }
+            return "Количество решений: 1. Корень: " + (-b) / (2 * a);
+        }
+
+        double root1 = (-b - Math.sqrt(discriminant)) / (2 * a);
+        double root2 = (-b + Math.sqrt(discriminant)) / (2 * a);
+
+        if (root1 < root2) {
+            return "Количество решений: 2. Корни: " + root1 + ";" + root2;
+        }
+
+        return "Количество решений: 2. Корни: " + root2 + ";" + root1;
     }
 }
