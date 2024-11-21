@@ -30,7 +30,7 @@ public class Task5 {
             return true;
         }
         return (a + b < c || a + c < b || b + c < a);
-        //return (a <= 0 || b <= 0 || c <= 0) || (a + b < c || a + c < b || b + c < a);
+        //return (a <= 0 || b <= 0 || c <= 0) || (a + b <= c || a + c <= b || b + c <= a);
     }
 
     static double getAreaByHeron(double a, double b, double c) {
