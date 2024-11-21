@@ -26,19 +26,20 @@ public class Task5 {
      */
 
     static boolean isIncorrectLengthsTriangle(double a, double b, double c) { //метод для проверки корректности вводимых данных
-
         if (a <= 0 || b <= 0 || c <= 0) {
             return true;
         }
-        return !(a + b > c && a + c > b && b + c > a);
+        return (a + b < c || a + c < b || b + c < a);
+        //return (a <= 0 || b <= 0 || c <= 0) || (a + b < c || a + c < b || b + c < a);
     }
 
     static double getAreaByHeron(double a, double b, double c) {
-        if (isIncorrectLengthsTriangle(a, b, c))
+        if (isIncorrectLengthsTriangle(a, b, c)) {
             return -1;
+        }
 
-        double halfOfPerimeter = (a + b + c) / 2;
-        return Math.sqrt(halfOfPerimeter * (halfOfPerimeter - a) * (halfOfPerimeter - b) * (halfOfPerimeter - c));
+        double halfPerimeter = (a + b + c) / 2;
+        return Math.sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
     }
 
     /**
@@ -179,7 +180,12 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaAdvanced(double a, double b, double c) {
+        if (isIncorrectLengthsTriangle(a, b, c)) {
+            return -1;
+        }
 
-        return 0;
+        double cosA = (b * b + c * c - a * a) / (2 * b * c);
+        double sinA = Math.sqrt(1 - cosA * cosA);
+        return (b * c * sinA) / 2; //A - угол между b и c
     }
 }
