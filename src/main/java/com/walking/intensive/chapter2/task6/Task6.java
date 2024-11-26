@@ -62,21 +62,23 @@ public class Task6 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static int getGcdByEuclideanAlgorithm(int m, int n) {
-        if (isIncorrectData(m, n) || m == 0 || n == 0) {
+
+        if (isIncorrectData(m, n)) {
             return -1;
         }
 
-        int divident = (m > n) ? m : n;  //начальное делимое, равное большему числу
-        int gcdEuclidean = (m > n) ? n : m;  //начальный делитель, равный меньшему числу
-        int tempDivisor = 0;  //для обмена значений gcdEuclidean
-        while (divident % gcdEuclidean != 0) {
-            if (divident % gcdEuclidean == 0)
-                return gcdEuclidean;
-            tempDivisor = divident % gcdEuclidean;
-            divident = gcdEuclidean;
-            gcdEuclidean = tempDivisor;
+        if (m == 1 || n == 1) {
+            return 1;
         }
 
-        return gcdEuclidean;
+        if (m == 0 || n == 0) {
+            return m == 0 ? n : m;
+        }
+
+        if (m == n) {
+            return m;
+        }
+
+        return getGcdByEuclideanAlgorithm(Math.max(m, n) % Math.min(m, n), Math.min(m, n));
     }
 }
