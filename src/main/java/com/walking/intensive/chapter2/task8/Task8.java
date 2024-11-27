@@ -21,10 +21,32 @@ package com.walking.intensive.chapter2.task8;
 public class Task8 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(getHappyTicketChance());
+    }
+
+    static int getSumThreeNumbers(int num) {
+        return num % 10 + (num / 10) % 10 + (num / 100) % 10;
     }
 
     static double getHappyTicketChance() {
-        // Ваш код
-        return 0.0;
+        final int MAX_NUMBER = 1000;
+        int happyTicketAmount = 0;
+        int[] firstThreeNum = new int[MAX_NUMBER];
+        int[] secondThreeNum = new int[MAX_NUMBER];
+
+        for (int i = 0; i < MAX_NUMBER; i++) {          //заполняем массивы суммами трех цифр
+            firstThreeNum[i] = getSumThreeNumbers(i);
+            secondThreeNum[i] = getSumThreeNumbers(i);
+        }
+
+        for (int i = 0; i < MAX_NUMBER; i++) {
+            for (int j = 0; j < MAX_NUMBER; j++) {
+                if (firstThreeNum[i] == secondThreeNum[j]) {
+                    happyTicketAmount++;
+                }
+            }
+        }
+
+        return (double) (happyTicketAmount) / 1000000;
     }
 }
