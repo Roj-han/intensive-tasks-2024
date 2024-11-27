@@ -1,5 +1,7 @@
 package com.walking.intensive.chapter2.task9;
 
+import java.util.Arrays;
+
 /**
  * Реализуйте метод getPascalTriangle(). Параметром он должен принимать натуральное число N,
  * а метод возвращать строковое представление треугольника Паскаля.
@@ -52,10 +54,45 @@ package com.walking.intensive.chapter2.task9;
 public class Task9 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(getPascalTriangle(18));
     }
 
     static String getPascalTriangle(int n) {
-        // Ваш код
-        return null;
+        if (n <= 0) {
+            return "";
+        }
+
+        String[] pascalTriangleArr = new String[n];
+        Arrays.fill(pascalTriangleArr, "");
+        int[] numberPrevStage = new int[n];
+        int[] numberCurrentStage = new int[n];
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j <= i; ++j) {
+                if (j == 0 || j == i) {
+                    if (j == 0) {
+                        pascalTriangleArr[i] += '1';
+                    } else {
+                        pascalTriangleArr[i] += " " + '1';
+                    }
+                    numberCurrentStage[j] = 1;
+                } else {
+                    numberCurrentStage[j] = numberPrevStage[j - 1] + numberPrevStage[j];
+                    pascalTriangleArr[i] += " " + numberCurrentStage[j];
+                }
+            }
+            numberPrevStage = Arrays.copyOf(numberCurrentStage, i + 1);
+        }
+
+        String pascalTriangle = "";
+        final int baseStringLength = pascalTriangleArr[n - 1].length();
+        for (int i = 0; i < n; ++i) {
+            int spaceLength = (baseStringLength - pascalTriangleArr[i].length()) / 2;
+            pascalTriangle += String.valueOf(' ').repeat(spaceLength) +
+                    pascalTriangleArr[i] +
+                    String.valueOf(' ').repeat(spaceLength) + '\n';
+        }
+
+        return pascalTriangle;
     }
 }
