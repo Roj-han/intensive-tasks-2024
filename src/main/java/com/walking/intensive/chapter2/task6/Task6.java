@@ -62,23 +62,10 @@ public class Task6 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static int getGcdByEuclideanAlgorithm(int m, int n) {
-
-        if (isIncorrectData(m, n)) {
-            return -1;
-        }
-
-        if (m == 1 || n == 1) {
-            return 1;
-        }
-
-        if (m == 0 || n == 0) {
-            return m == 0 ? n : m;
-        }
-
-        if (m == n) {
+        if (n == 0) {
             return m;
         }
 
-        return getGcdByEuclideanAlgorithm(Math.max(m, n) % Math.min(m, n), Math.min(m, n));
+        return getGcdByEuclideanAlgorithm(n, m % n);
     }
 }
