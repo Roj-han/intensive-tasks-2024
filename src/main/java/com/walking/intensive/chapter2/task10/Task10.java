@@ -12,10 +12,23 @@ package com.walking.intensive.chapter2.task10;
 public class Task10 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(isPalindrome("Appa"));
     }
 
     static boolean isPalindrome(String inputString) {
-        // Ваш код
-        return false;
+        if (inputString == null || inputString.length() <= 1) {
+            return false;
+        }
+
+        String punctReducedString = inputString.replaceAll("[\\p{Punct}&\\p{Space}\r\n]", "");
+        punctReducedString = punctReducedString.toLowerCase();
+        String reverseString = "";
+
+        int reducedStrLength = punctReducedString.length();
+        for (int i = reducedStrLength - 1; i >= 0; --i) {
+            reverseString += punctReducedString.charAt(i);
+        }
+
+        return reverseString.equals(punctReducedString);
     }
 }
