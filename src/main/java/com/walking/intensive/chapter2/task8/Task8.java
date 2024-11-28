@@ -1,5 +1,7 @@
 package com.walking.intensive.chapter2.task8;
 
+import java.util.Arrays;
+
 /**
  * Добираясь в школу на трамвае Вова проверяет, является ли купленный билет счастливым.
  * Если является, то нужно загадать желание и съесть билетик.
@@ -24,29 +26,30 @@ public class Task8 {
         System.out.println(getHappyTicketChance());
     }
 
-    static int getSumThreeNumbers(int num) {
-        return num % 10 + (num / 10) % 10 + (num / 100) % 10;
-    }
-
     static double getHappyTicketChance() {
         final int MAX_NUMBER = 1000;
+        final int AMOUNT_SUMS = 28; //количество сумм трех цифр - от 0 до 27
         int happyTicketAmount = 0;
-        int[] firstThreeNum = new int[MAX_NUMBER];
-        int[] secondThreeNum = new int[MAX_NUMBER];
+        int[] sumThreeNum = new int[MAX_NUMBER];
 
-        for (int i = 0; i < MAX_NUMBER; i++) {          //заполняем массивы суммами трех цифр
-            firstThreeNum[i] = getSumThreeNumbers(i);
-            secondThreeNum[i] = getSumThreeNumbers(i);
+        for (int i = 0; i < MAX_NUMBER; i++) {          //заполняем массив суммами трех цифр
+            sumThreeNum[i] = getSumThreeNumbers(i);
         }
 
+        int[] amountEqualSum = new int[AMOUNT_SUMS];   //подсчитываем количество одинаковых сумм в половине билета
         for (int i = 0; i < MAX_NUMBER; i++) {
-            for (int j = 0; j < MAX_NUMBER; j++) {
-                if (firstThreeNum[i] == secondThreeNum[j]) {
-                    happyTicketAmount++;
-                }
-            }
+            ++amountEqualSum[sumThreeNum[i]];
+        }
+
+        for (int i = 0; i < AMOUNT_SUMS; i++) {
+            happyTicketAmount += amountEqualSum[i] * amountEqualSum[i];
         }
 
         return (double) (happyTicketAmount) / 1000000;
     }
+
+    static int getSumThreeNumbers(int num) {
+        return num % 10 + (num / 10) % 10 + (num / 100) % 10;
+    }
+
 }
