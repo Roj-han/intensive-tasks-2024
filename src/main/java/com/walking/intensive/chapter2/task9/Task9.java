@@ -88,9 +88,9 @@ public class Task9 {
         final int baseStringLength = pascalTriangleArr[n - 1].length();
         for (int i = 0; i < n; ++i) {
             int spaceLength = (baseStringLength - pascalTriangleArr[i].length()) / 2;
-            pascalTriangle += String.valueOf(' ').repeat(spaceLength) +
-                    pascalTriangleArr[i] +
-                    String.valueOf(' ').repeat(spaceLength) + '\n';
+            pascalTriangle += String.valueOf(' ').repeat(spaceLength)
+                    + pascalTriangleArr[i]
+                    + String.valueOf(' ').repeat(spaceLength) + '\n';
         }
 
         return pascalTriangle;
