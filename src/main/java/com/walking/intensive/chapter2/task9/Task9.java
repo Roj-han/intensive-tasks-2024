@@ -64,7 +64,7 @@ public class Task9 {
 
         String[] pascalTriangleArr = new String[n];
         Arrays.fill(pascalTriangleArr, "");
-        int[] numberPrevStage = new int[n];       
+        int[] numberPrevStage = new int[n];
         int[] numberCurrentStage = new int[n];
 
         for (int i = 0; i < n; ++i) {
