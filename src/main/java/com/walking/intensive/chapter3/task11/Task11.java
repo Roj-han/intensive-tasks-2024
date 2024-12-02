@@ -43,10 +43,39 @@ package com.walking.intensive.chapter3.task11;
 public class Task11 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        int[] arr = {1, 4, 2, 5, 3};
+        System.out.println(getOddSubArraysElementsSum(arr));
     }
 
     static int getOddSubArraysElementsSum(int[] array) {
-        // Ваш код
-        return 0;
+        for (int j : array) {
+            if (j < 0) {
+                return -1;
+            }
+        }
+
+        int oddSubArraysElementsSum = 0;
+        int length = array.length;
+        int subLength = 3;
+
+        for (int i = 0; i < length; i++) {
+            oddSubArraysElementsSum += array[i];
+            while (i + subLength <= length) {
+                oddSubArraysElementsSum += getSumSubArray(array, i, subLength);
+                subLength += 2;
+            }
+            subLength = 3;
+        }
+
+        return oddSubArraysElementsSum;
+    }
+
+    static int getSumSubArray(int[] array, int i, int subLength) {
+        int sumSubArray = 0;
+        for (int j = i; j < i + subLength; j++) {
+            sumSubArray += array[j];
+        }
+
+        return sumSubArray;
     }
 }
