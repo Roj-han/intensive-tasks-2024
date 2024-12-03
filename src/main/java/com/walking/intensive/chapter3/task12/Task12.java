@@ -1,5 +1,7 @@
 package com.walking.intensive.chapter3.task12;
 
+import java.util.Arrays;
+
 /**
  * Девочка Света очень любит играть в мячики. Она поставила в ряд корзинки и в некоторые положила по 1 мячику.
  * За 1 раз она может переложить 1 мячик в соседнюю корзинку. В 1 корзинке может поместиться много мячиков.
@@ -41,10 +43,47 @@ package com.walking.intensive.chapter3.task12;
 public class Task12 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        String str = "";
+        System.out.println(Arrays.toString(getMovementsNumber(str)));
     }
 
     static int[] getMovementsNumber(String baskets) {
-        // Ваш код
-        return new int[]{};
+        if (baskets == null || baskets.isEmpty()) {
+            return new int[]{};
+        }
+
+        int arrLength = baskets.length();
+        int[] intArray = new int[arrLength];
+        int i = 0;
+        for (char ch : baskets.toCharArray()) {
+            if (!(ch == '0' || ch == '1')) {
+                return new int[]{};
+            }
+            if (ch == '0') {
+                intArray[i] = 0;
+            } else {
+                intArray[i] = 1;
+            }
+            ++i;
+        }
+
+        int[] amountTransposition = new int[arrLength];
+        for (int j = 0; j < arrLength; j++) {
+            for (int k = 0; k < arrLength; k++) {
+                if (intArray[k] == 1) {
+                    amountTransposition[j] += getAbsNumber(j - k);
+                }
+            }
+        }
+
+        return amountTransposition;
+    }
+
+    static int getAbsNumber(int number) {
+        if (number < 0) {
+            return -number;
+        }
+
+        return number;
     }
 }
