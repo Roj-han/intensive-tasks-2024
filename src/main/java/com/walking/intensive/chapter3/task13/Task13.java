@@ -62,13 +62,11 @@ public class Task13 {
         int stepsCount = 0;
         int currentCanVolume = wateringCanVolume;
         for (int i = 0; i < plants.length; ++i, ++stepsCount) {
-            if (plants[i] != 0) {
-                if (currentCanVolume >= plants[i]) {
-                    currentCanVolume -= plants[i];
-                } else {
-                    stepsCount += i * 2;
-                    currentCanVolume = wateringCanVolume - plants[i];
-                }
+            if (currentCanVolume >= plants[i]) {
+                currentCanVolume -= plants[i];
+            } else {
+                stepsCount += i * 2;
+                currentCanVolume = wateringCanVolume - plants[i];
             }
         }
 
@@ -81,7 +79,7 @@ public class Task13 {
         }
 
         for (int x : plants) {
-            if (x < 0 || x > wateringCanVolume) {
+            if (x <= 0 || x > wateringCanVolume) {
                 return false;
             }
         }
