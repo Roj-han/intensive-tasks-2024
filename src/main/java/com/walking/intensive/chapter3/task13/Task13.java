@@ -78,8 +78,8 @@ public class Task13 {
             return false;
         }
 
-        for (int x : plants) {
-            if (x <= 0 || x > wateringCanVolume) {
+        for (int plant : plants) {
+            if (plant <= 0 || plant > wateringCanVolume) {
                 return false;
             }
         }
