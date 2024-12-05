@@ -43,35 +43,21 @@ import java.util.Arrays;
 public class Task12 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-        String str = "";
+        String str = "001011";
         System.out.println(Arrays.toString(getMovementsNumber(str)));
     }
 
     static int[] getMovementsNumber(String baskets) {
-        if (baskets == null || baskets.isEmpty()) {
+        if (!isValidBaskets(baskets)) {
             return new int[]{};
         }
 
         int arrLength = baskets.length();
-        int[] intArray = new int[arrLength];
-        int i = 0;
-        for (char ch : baskets.toCharArray()) {
-            if (!(ch == '0' || ch == '1')) {
-                return new int[]{};
-            }
-            if (ch == '0') {
-                intArray[i] = 0;
-            } else {
-                intArray[i] = 1;
-            }
-            ++i;
-        }
-
         int[] amountTransposition = new int[arrLength];
         for (int j = 0; j < arrLength; j++) {
             for (int k = 0; k < arrLength; k++) {
-                if (intArray[k] == 1) {
-                    amountTransposition[j] += getAbsNumber(j - k);
+                if (baskets.charAt(k) == '1') {
+                    amountTransposition[j] += Math.abs(j - k);
                 }
             }
         }
@@ -79,11 +65,17 @@ public class Task12 {
         return amountTransposition;
     }
 
-    static int getAbsNumber(int number) {
-        if (number < 0) {
-            return -number;
+    static boolean isValidBaskets(String baskets) {
+        if (baskets == null || baskets.isEmpty()) {
+            return false;
         }
 
-        return number;
+        for (char ch : baskets.toCharArray()) {
+            if (ch != '0' && ch != '1') {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
