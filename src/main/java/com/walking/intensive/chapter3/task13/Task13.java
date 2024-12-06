@@ -50,7 +50,7 @@ package com.walking.intensive.chapter3.task13;
 public class Task13 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-        int[] plants = {2, 0, 0, 0};
+        int[] plants = {2, 2, 3, 3};
         System.out.println(getStepsCount(plants, 5));
     }
 
