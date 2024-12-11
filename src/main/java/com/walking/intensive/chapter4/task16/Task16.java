@@ -70,12 +70,12 @@ public class Task16 {
             return new int[0];
         }
 
-        int[] incrementArray = new int[arr.length];
+        int[] incrementedArray = new int[arr.length];
         for (int i = 0; i < arr.length; ++i) {
-            incrementArray[i] = arr[i] + 1;
+            incrementedArray[i] = arr[i] + 1;
         }
 
-        return incrementArray;
+        return incrementedArray;
     }
 
     /**
