@@ -98,13 +98,14 @@ public class Task16 {
             return new int[0];
         }
 
-        int[] multiplyArray = new int[Math.max(arr1.length, arr2.length)];
+        int multiArrLength = Math.max(arr1.length, arr2.length);
         int minArrayLength = Math.min(arr1.length, arr2.length);
+        int[] multipliedArray = new int[multiArrLength];
         for (int i = 0; i < minArrayLength; ++i) {
-            multiplyArray[i] = arr1[i] * arr2[i];
+            multipliedArray[i] = arr1[i] * arr2[i];
         }
 
-        return multiplyArray;
+        return multipliedArray;
     }
 
     /**
@@ -127,24 +128,18 @@ public class Task16 {
             return new int[0];
         }
 
-        int[] subtractArray = new int[Math.max(arr1.length, arr2.length)];
-        int minArrayLength = Math.min(arr1.length, arr2.length);
-        int i = 0;
-        for (; i < minArrayLength; ++i) {
-            subtractArray[i] = arr1[i] - arr2[i];
+        int subtrArrLength = Math.max(arr1.length, arr2.length);
+        int[] subtractedArray = new int[subtrArrLength];
+
+        for (int i = 0; i < arr1.length; ++i) {
+            subtractedArray[i] = arr1[i];
         }
 
-        if (arr1.length < arr2.length) {
-            for (; i < subtractArray.length; ++i) {
-                subtractArray[i] = -arr2[i];
-            }
-        } else if (arr1.length > arr2.length) {
-            for (; i < subtractArray.length; ++i) {
-                subtractArray[i] = arr1[i];
-            }
+        for (int i = 0; i < arr2.length; ++i) {
+            subtractedArray[i] -= arr2[i];
         }
 
-        return subtractArray;
+        return subtractedArray;
     }
 
     /**
@@ -164,12 +159,12 @@ public class Task16 {
             return new int[0];
         }
 
-        int[] reverseArray = new int[arr.length];
+        int[] reversedArray = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
-            reverseArray[i] = arr[arr.length - 1 - i];
+            reversedArray[i] = arr[arr.length - 1 - i];
         }
 
-        return reverseArray;
+        return reversedArray;
     }
 
     /**
@@ -191,26 +186,26 @@ public class Task16 {
             return new int[0];
         }
 
-        int[] addArray = new int[arr.length + 1]; //new int[arr.length];
+        int[] addedArray = new int[arr.length + 1]; //new int[arr.length];
         if (index >= arr.length) {
             for (int i = 0; i < arr.length; i++) {
-                addArray[i] = arr[i];
+                addedArray[i] = arr[i];
             }
-            addArray[arr.length] = newValue;
-        } else {
-            int i = 0;
-            while (i < index) {
-                addArray[i] = arr[i];
-                ++i;
-            }
-            addArray[index] = newValue;
-            ++i;
-            for (; i < addArray.length; i++) {
-                addArray[i] = arr[i - 1];
+            addedArray[arr.length] = newValue;
+            return addedArray;
+        }
+
+        for (int i = 0; i < addedArray.length; i++) {
+            if (i < index) {
+                addedArray[i] = arr[i];
+            } else if (i == index) {
+                addedArray[index] = newValue;
+            } else {
+                addedArray[i] = arr[i - 1];
             }
         }
 
-        return addArray;
+        return addedArray;
     }
 
     /**
@@ -280,9 +275,10 @@ public class Task16 {
      */
     static int getLastIndex(int[] arr, int value) {
         int lastIndex = -1;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = arr.length - 1; i >= 0; i--) {
             if (arr[i] == value) {
                 lastIndex = i;
+                return lastIndex;
             }
         }
 
@@ -312,12 +308,14 @@ public class Task16 {
             for (int i = 0; i < arr.length; i++) {
                 reducedArray[i] = arr[i];
             }
-        } else {
-            reducedArray = new int[arr.length - 1];
-            for (int i = 0; i < index; i++) {
+            return reducedArray;
+        }
+
+        reducedArray = new int[arr.length - 1];
+        for (int i = 0; i < reducedArray.length; i++) {
+            if (i < index) {
                 reducedArray[i] = arr[i];
-            }
-            for (int i = index; i < reducedArray.length; i++) {
+            } else {
                 reducedArray[i] = arr[i + 1];
             }
         }
@@ -391,7 +389,7 @@ public class Task16 {
             }
         }
 
-        return matchArr2Arr1 == arr1.length;
+        return matchArr2Arr1 == arr2.length;
     }
 
     /**
