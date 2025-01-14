@@ -1,5 +1,8 @@
 package com.walking.intensive.chapter4.task17;
 
+import java.util.Arrays;
+import java.util.Random;
+
 /**
  * Смауг, живущий в пещере с золотом, был заперт внутри горы.
  * Чтобы занять свое время, он развлекал себя следующей игрой.
@@ -22,6 +25,10 @@ package com.walking.intensive.chapter4.task17;
 public class Task17 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        //int[] arr = {-1, 0, 3, -1, 0, 11, 9, 16, 9, -2, 6, 2, -1};
+        //System.out.println(Arrays.toString(arr));
+        //System.out.println(Arrays.toString(sortByQuicksort(arr)));
+        System.out.println(getBenchmarkOn10000());
     }
 
     /**
@@ -40,9 +47,23 @@ public class Task17 {
      * </ol>
      */
     static int[] sortByBubble(int[] array) {
-        // Ваш код
-        return new int[]{};
+        if (!isValidArray(array)) {
+            return new int[]{};
+        }
+
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 1; j < array.length - i; j++) {
+                if (array[j] < array[j - 1]) {
+                    int temp = array[j];
+                    array[j] = array[j - 1];
+                    array[j - 1] = temp;
+                }
+            }
+        }
+
+        return array;
     }
+
     /**
      * Быстрая сортировка, она же QuickSort:
      *
@@ -84,8 +105,11 @@ public class Task17 {
      * </ol>
      */
     static int[] sortByQuicksort(int[] array) {
-        // Ваш код
-        return new int[]{};
+        if (!isValidArray(array)) {
+            return new int[]{};
+        }
+
+        return myQSort(array, 0, array.length - 1);
     }
 
     /**
@@ -97,15 +121,78 @@ public class Task17 {
      * Время выполнения - разность времени после работы алгоритма и времени до работы алгоритма
      */
     static long getBenchmarkOn1000() {
-        // Ваш код
-        return 0;
+        int[] randomNumbers = new int[1000];
+        Random random = new Random();
+        for (int i = 0; i < 1000; i++) {
+            randomNumbers[i] = random.nextInt(1000);
+        }
+
+        long startSorting = System.currentTimeMillis();
+        //sortByBubble(randomNumbers);
+        sortByQuicksort(randomNumbers);
+        long endSorting = System.currentTimeMillis();
+        return endSorting - startSorting;
     }
 
     /**
      * Повторите предыдущие вычисления из метода getBenchmarkOn1000() для массива в 10 000 элементов.
      */
     static long getBenchmarkOn10000() {
-        // Ваш код
-        return 0;
+        int[] randomNumbers = new int[10000];
+        Random random = new Random();
+        for (int i = 0; i < 10000; i++) {
+            randomNumbers[i] = random.nextInt(1000);
+        }
+
+        long startSorting = System.currentTimeMillis();
+        //sortByBubble(randomNumbers);
+        sortByQuicksort(randomNumbers);
+        long endSorting = System.currentTimeMillis();
+        return endSorting - startSorting;
     }
+
+    static boolean isValidArray(int[] array) {
+        return array != null && array.length != 0;
+    }
+
+    static int[] myQSort(int[] arr, int left, int right) {
+        if (right - left <= 1) {
+            if (arr[left] > arr[right]) {
+                int temp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = temp;
+            }
+            return arr;
+        }
+
+        int middleElement = left + (right - left) / 2;
+        int middleElementMeaning = arr[middleElement];
+        int i = left, j = right;
+        while (i <= j) {
+            while (arr[i] < middleElementMeaning) {
+                ++i;
+            }
+            while (arr[j] > middleElementMeaning) {
+                --j;
+            }
+            if (i <= j) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                ++i;
+                --j;
+            }
+        }
+
+        if (i < right) {
+            myQSort(arr, i, right);
+        }
+
+        if (j > left) {
+            myQSort(arr, left, j);
+        }
+
+        return arr;
+    }
+
 }
