@@ -1,7 +1,5 @@
 package com.walking.intensive.chapter4.task18;
 
-import java.util.Arrays;
-
 /**
  * Восемнадцатилетний Емеля едет в соседнюю деревню на печи искать себе невесту-ровесницу.
  * В каждой избушке в ряд живут невесты, каждая следующая старше
@@ -25,7 +23,7 @@ import java.util.Arrays;
  */
 public class Task18 {
     public static void main(String[] args) {
-//        Для собственных проверок можете делать любые изменения в этом методе
+
     }
 
     /**
@@ -80,22 +78,19 @@ public class Task18 {
             return girlAges[end];
         }
 
-        while (end > begin) {
-            int middle = begin + (end - begin) / 2;
-            if (girlAges[middle] == targetAge) {
-                return girlAges[middle];
-            }
+        int middle = begin + (end - begin) / 2;
+        if (girlAges[middle] == targetAge) {
+            return girlAges[middle];
+        }
 
-            if (girlAges[middle] > targetAge) {
-                return findAgeByBinarySearch(girlAges, begin, middle, targetAge);
-            }
+        if (girlAges[middle] > targetAge) {
+            return findAgeByBinarySearch(girlAges, begin, middle, targetAge);
+        }
 
-            if (girlAges[middle] < targetAge) {
-                return findAgeByBinarySearch(girlAges, middle, end, targetAge);
-            }
+        if (girlAges[middle] < targetAge) {
+            return findAgeByBinarySearch(girlAges, middle, end, targetAge);
         }
 
         return -1;
     }
-
 }
