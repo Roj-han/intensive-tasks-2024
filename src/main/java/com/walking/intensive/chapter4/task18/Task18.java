@@ -72,10 +72,7 @@ public class Task18 {
         }
 
         if (end - begin == 1) {
-            if (girlAges[begin] == targetAge || girlAges[end] > targetAge) {
-                return girlAges[begin];
-            }
-            return girlAges[end];
+            return (girlAges[begin] == targetAge || girlAges[end] > targetAge) ? girlAges[begin] : girlAges[end];
         }
 
         int middle = begin + (end - begin) / 2;
